@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "becca-v-terraform-state"
+    bucket = "lobo-zorra-static-terraform-state-files"
     key    = "prod/terraform.tfstate"
     region = "us-west-1"
   }
