@@ -1,6 +1,11 @@
 name: tfsec PR Commenter
 on:
   pull_request:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/infra-pr.yaml'
 jobs:
   tfsec:
     name: tfsec PR commenter
