@@ -1,0 +1,16 @@
+name: tfsec PR Commenter
+on:
+  pull_request:
+jobs:
+  tfsec:
+    name: tfsec PR commenter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: tfsec Run
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          tfsec_args: --force-all-dirs
+          github_token: ${{ github.token }}
