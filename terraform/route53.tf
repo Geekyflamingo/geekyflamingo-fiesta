@@ -15,7 +15,6 @@ resource "aws_acm_certificate" "loboandzorra" {
 
 
 resource "aws_route53_record" "cert_validation" {
-  provider        = aws.acm_provider
   allow_overwrite = true
   name            = tolist(aws_acm_certificate.loboandzorra.domain_validation_options)[0].resource_record_name
   records         = [tolist(aws_acm_certificate.loboandzorra.domain_validation_options)[0].resource_record_value]
@@ -26,6 +25,7 @@ resource "aws_route53_record" "cert_validation" {
 
 
 resource "aws_acm_certificate_validation" "cert" {
+  provider                = aws.acm_provider
   certificate_arn         = aws_acm_certificate.loboandzorra.arn
   validation_record_fqdns = [aws_route53_record.cert_validation.fqdn]
 }
