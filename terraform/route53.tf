@@ -1,4 +1,5 @@
 data "aws_route53_zone" "public" {
+  provider     = aws.route53_provider
   name         = var.domain_name
   private_zone = false
 }
