@@ -4,6 +4,7 @@ data "aws_route53_zone" "public" {
 }
 
 resource "aws_acm_certificate" "loboandzorra" {
+  provider          = aws.acm_provider
   domain_name       = var.domain_name
   validation_method = "DNS"
   lifecycle {
@@ -14,6 +15,7 @@ resource "aws_acm_certificate" "loboandzorra" {
 
 
 resource "aws_route53_record" "cert_validation" {
+  provider        = aws.acm_provider
   allow_overwrite = true
   name            = tolist(aws_acm_certificate.loboandzorra.domain_validation_options)[0].resource_record_name
   records         = [tolist(aws_acm_certificate.loboandzorra.domain_validation_options)[0].resource_record_value]
