@@ -7,6 +7,7 @@ on:
     paths:
       - 'terraform/**'
       - '.github/workflows/infra-pr.yaml'
+  workflow_dispatch:
 env:
   TF_LOG: INFO
   TF_VERSION: 1.2.7
