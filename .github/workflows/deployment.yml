@@ -8,6 +8,14 @@ on:
       - '.github/workflows/deployment.yml'
   workflow_dispatch:
 
+env:
+  SOURCE_DIR: './src'
+  AWS_REGION: 'us-west-1'
+  DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
+  AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   deploy-site:
     name: Deploy Site
@@ -16,13 +24,10 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Sync S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks
-        env:
-          SOURCE_DIR: './src'
-          AWS_REGION: 'us-west-1'
-          AWS_S3_BUCKET: 'lobo-and-zorra-static-website-bucket'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Sync S3 and Invalidate Cloudfront
+        run: |  
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set region $AWS_REGION
+          aws s3 sync $SOURCE_DIR s3://$AWS_S3_BUCKET
+          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
