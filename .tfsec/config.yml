@@ -2,4 +2,5 @@
 minimum_severity: HIGH
 exclude:
   - aws-s3-encryption-customer-key
+  - aws-cloudfront-enable-waf
 min_required_version: v1.27.1

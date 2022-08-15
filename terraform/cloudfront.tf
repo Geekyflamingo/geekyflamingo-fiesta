@@ -15,7 +15,6 @@ resource "aws_cloudfront_distribution" "my_cloudfront" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   aliases             = [var.domain_name]
-  web_acl_id          = "waf_id"
   restrictions {
     geo_restriction {
       restriction_type = "none"
