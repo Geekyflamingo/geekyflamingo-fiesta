@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "static-website-bucket" {
   bucket = var.bucket_name
   tags   = var.tags
-  acl    = "private"
 }
 
 resource "aws_s3_bucket_versioning" "static-website-bucket-versioning" {
