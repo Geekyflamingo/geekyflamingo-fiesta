@@ -5,4 +5,4 @@ tags = {
   Pipeline    = "lobo-and-zorra-static-site-infra"
 }
 
-domain_name = "*.loboandzorra.earth"
+domain_name = "loboandzorra.earth"
