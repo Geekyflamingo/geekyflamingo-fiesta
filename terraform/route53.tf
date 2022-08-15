@@ -32,7 +32,7 @@ resource "aws_route53_record" "web" {
   zone_id = data.aws_route53_zone.public.id
   name    = var.domain_name
 
-  type = "CNAME"
+  type = "A"
 
   alias {
     name                   = aws_cloudfront_distribution.my_cloudfront.domain_name
