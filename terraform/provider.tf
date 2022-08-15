@@ -18,8 +18,3 @@ terraform {
 provider "aws" {
   region = "us-west-1"
 }
-
-provider "aws" {
-  alias  = "route53_provider"
-  region = "us-east-1"
-}
